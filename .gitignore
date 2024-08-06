@@ -1,0 +1,8 @@
+*__pycache__*
+venv/
+.idea/
+.directory
+.ipynb*
+*.egg-info/
+build/
+dist/
