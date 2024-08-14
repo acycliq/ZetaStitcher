@@ -2,17 +2,19 @@ import sys
 import os.path
 import logging
 import argparse
+import configparser
+from zetastitcher.fuse.config import default
 
 import yaml
 import humanize
 import coloredlogs
 
-from ..version import __version__
+from zetastitcher.version import __version__
 
 import numpy as np
 
-from . import absolute_positions
-from .fuse_runner import FuseRunner
+from zetastitcher.fuse import absolute_positions
+from zetastitcher.fuse.fuse_runner import FuseRunner
 from zetastitcher.align.filematrix import FileMatrix
 from zetastitcher.align.xcorr_filematrix import XcorrFileMatrix
 
@@ -195,8 +197,40 @@ def append_fuser_options_to_yaml(yml_out_file, args):
         yaml.dump(y, f, default_flow_style=False)
 
 
+def app(opts=None):
+    """
+    NOTE: call this from python, pass a dict with key 'output_filename' and value
+    r'/home/dimitris/dev/python/ZetaStitcher/zetastitcher/fuse/fused_2.tif'
+    """
+    if opts is None:
+        opts = {}
+        opts['output_filename'] = r'/home/dimitris/dev/python/ZetaStitcher/zetastitcher/fuse/fused_2.tif'
+
+    # # get the default settings
+    # config = configparser.ConfigParser()
+    # path_str = os.path.dirname(os.path.abspath(__file__))
+    # config.read(os.path.join(path_str, 'config.ini'))
+    # defaults = config['default']
+    # result = dict(defaults)
+
+    # update the defaults with the user-defined settings
+    default.update({k: v for k, v in opts.items() if v is not None})  # Update if v is not None
+    args = argparse.Namespace(**default)
+
+    # call fuse now
+    fuse(args)
+
+
 def main():
     args = parse_args()
+    fuse(args)
+
+    app({'output_filename': r'/home/dimitris/dev/python/ZetaStitcher/zetastitcher/fuse/fused_3.tif',
+         'yml_file': '/media/dimitris/My Passport/data/Christina/test_coppafish-tools/if_reg_output/if/channel_0'})
+    print('Done')
+
+
+def fuse(args):
     preprocess_and_check_args(args)
 
     logger.info("invert X: {}, invert Y: {}".format(
