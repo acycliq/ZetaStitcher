@@ -206,12 +206,6 @@ def app(opts=None):
         opts = {}
         opts['output_filename'] = r'/home/dimitris/dev/python/ZetaStitcher/zetastitcher/fuse/fused_2.tif'
 
-    # # get the default settings
-    # config = configparser.ConfigParser()
-    # path_str = os.path.dirname(os.path.abspath(__file__))
-    # config.read(os.path.join(path_str, 'config.ini'))
-    # defaults = config['default']
-    # result = dict(defaults)
 
     # update the defaults with the user-defined settings
     default.update({k: v for k, v in opts.items() if v is not None})  # Update if v is not None
