@@ -24,6 +24,7 @@ def to_dtype(x, dtype):
         return x
     if np.issubdtype(dtype, np.integer):
         np.rint(x, x)
+    x[np.isnan(x)] = 0
     return x.astype(dtype, copy=False)
 
 
