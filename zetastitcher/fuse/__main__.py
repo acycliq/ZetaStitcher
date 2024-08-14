@@ -198,7 +198,7 @@ def append_fuser_options_to_yaml(yml_out_file, args):
         yaml.dump(y, f, default_flow_style=False)
 
 
-def app(opts=None):
+def stitch_fuse(opts=None):
     """
     NOTE: call this from python, pass a dict with key 'yml_file' and value
     r'//media/dimitris/My Passport/data/Christina/test_coppafish-tools/if_reg_output/if/channel_0'
