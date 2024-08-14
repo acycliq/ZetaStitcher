@@ -4,6 +4,7 @@ import logging
 import argparse
 import configparser
 from zetastitcher.fuse.config import default
+import pathlib
 
 import yaml
 import humanize
@@ -199,13 +200,16 @@ def append_fuser_options_to_yaml(yml_out_file, args):
 
 def app(opts=None):
     """
-    NOTE: call this from python, pass a dict with key 'output_filename' and value
-    r'/home/dimitris/dev/python/ZetaStitcher/zetastitcher/fuse/fused_2.tif'
+    NOTE: call this from python, pass a dict with key 'yml_file' and value
+    r'//media/dimitris/My Passport/data/Christina/test_coppafish-tools/if_reg_output/if/channel_0'
+    app({'yml_file': '/media/dimitris/My Passport/data/Christina/test_coppafish-tools/if_reg_output/if/channel_0'})
     """
-    if opts is None:
-        opts = {}
-        opts['output_filename'] = r'/home/dimitris/dev/python/ZetaStitcher/zetastitcher/fuse/fused_2.tif'
-
+    try:
+        opts['output_filename']
+    except KeyError:
+        zs_dir = pathlib.Path.home().joinpath('.zetastitcher')
+        zs_dir.mkdir(exist_ok=True)
+        opts['output_filename'] = os.path.join(zs_dir, 'fused.tif')
 
     # update the defaults with the user-defined settings
     default.update({k: v for k, v in opts.items() if v is not None})  # Update if v is not None
@@ -218,10 +222,6 @@ def app(opts=None):
 def main():
     args = parse_args()
     fuse(args)
-
-    app({'output_filename': r'/home/dimitris/dev/python/ZetaStitcher/zetastitcher/fuse/fused_3.tif',
-         'yml_file': '/media/dimitris/My Passport/data/Christina/test_coppafish-tools/if_reg_output/if/channel_0'})
-    print('Done')
 
 
 def fuse(args):
