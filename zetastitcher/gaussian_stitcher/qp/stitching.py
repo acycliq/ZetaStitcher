@@ -1,5 +1,6 @@
 from .mapper import QPBuilder
 from qpsolvers import solve_qp
+from scipy.sparse import csc_matrix
 
 from collections import defaultdict
 import networkx as nx
@@ -159,6 +160,9 @@ class GaussianStitcherQP(object):
         # print('rank([P; A; G])', np.linalg.matrix_rank(PAG))
         # print('shape([P; A; G])', PAG.shape)
 
+        P = csc_matrix(P)
+        G = csc_matrix(G)
+        A = csc_matrix(A)
         x = solve_qp(P, q, G, h, A, b, solver=self.solver)
         return x, variables
 #
