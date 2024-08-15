@@ -61,7 +61,9 @@ setup(
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=install_requires,
+    install_deps=['cachetools', 'coloredlogs', 'cvxpy', 'humanize', 'imageio',
+                  'networkx', 'numpy', 'opencv-python-headless', 'pandas', 'pims',
+                  'psutil', 'pyyaml', 'qpsolvers', 'scipy', 'tifffile', 'napari[all]'],
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
