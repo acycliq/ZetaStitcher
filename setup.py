@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-install_deps = ['numpy', 'cachetools', 'coloredlogs', 'cvxpy', 'humanize', 'imageio',
+install_deps = ['numpy', 'cachetools', 'coloredlogs', 'humanize', 'imageio',
                 'networkx', 'numpy', 'opencv-python-headless', 'pandas', 'pims',
                 'psutil', 'pyyaml', 'qpsolvers', 'scipy', 'tifffile', 'napari[all]'],
 
