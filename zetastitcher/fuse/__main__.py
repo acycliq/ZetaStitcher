@@ -198,7 +198,7 @@ def append_fuser_options_to_yaml(yml_out_file, args):
         yaml.dump(y, f, default_flow_style=False)
 
 
-def stitch_fuse(opts=None):
+def stitch_fuse(opts: dict):
     """
     NOTE: call this from python, pass a dict with key 'yml_file' and value
     r'//media/dimitris/My Passport/data/Christina/test_coppafish-tools/if_reg_output/if/channel_0'
@@ -210,6 +210,12 @@ def stitch_fuse(opts=None):
         zs_dir = pathlib.Path.home().joinpath('.zetastitcher')
         zs_dir.mkdir(exist_ok=True)
         opts['output_filename'] = os.path.join(zs_dir, 'fused.tif')
+
+    try:
+        opts['yml_file']
+    except KeyError:
+        opts['yml_file'] = pathlib.Path.home().joinpath('.zetastitcher')
+
 
     # update the defaults with the user-defined settings
     default.update({k: v for k, v in opts.items() if v is not None})  # Update if v is not None
