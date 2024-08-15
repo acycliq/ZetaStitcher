@@ -1,5 +1,8 @@
 from setuptools import setup, find_packages
 
+install_deps = ['numpy', 'cachetools', 'coloredlogs', 'cvxpy', 'humanize', 'imageio',
+                'networkx', 'numpy', 'opencv-python-headless', 'pandas', 'pims',
+                'psutil', 'pyyaml', 'qpsolvers', 'scipy', 'tifffile', 'napari[all]'],
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
@@ -58,9 +61,8 @@ setup(
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_deps=['cachetools', 'coloredlogs', 'cvxpy', 'humanize', 'imageio',
-                  'networkx', 'numpy', 'opencv-python-headless', 'pandas', 'pims',
-                  'psutil', 'pyyaml', 'qpsolvers', 'scipy', 'tifffile', 'napari[all]'],
+
+    install_requires=install_deps,
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
