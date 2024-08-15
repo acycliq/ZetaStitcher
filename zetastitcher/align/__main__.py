@@ -7,6 +7,8 @@ import argparse
 import threading
 import concurrent.futures
 from datetime import timedelta
+from zetastitcher.align.config import default
+import pathlib
 
 import json
 import yaml
@@ -368,9 +370,30 @@ class Runner(object):
 
 def main():
     arg = parse_args()
+    align(arg)
 
+
+def stitch_align(opts: dict):
+    """
+    NOTE: call this from python, pass a dict with key 'output_file' and value
+    r'some/path/to/stitch.yml'
+    app({'output_file': 'some/path/to/stitch.yml'})
+    """
+    try:
+        opts['output_file']
+    except KeyError:
+        zs_dir = pathlib.Path.home().joinpath('.zetastitcher')
+        zs_dir.mkdir(exist_ok=True)
+        opts['output_file'] = os.path.join(zs_dir, 'stitch.yml')
+
+    default.update({k: v for k, v in opts.items() if v is not None})  # Update if v is not None
+    arg = argparse.Namespace(**default)
+
+    align(arg)
+
+
+def align(arg):
     r = Runner()
-
     keys = ['input_folder', 'output_file', 'channel', 'max_dx', 'max_dy',
             'max_dz', 'z_samples', 'z_stride', 'overlap_v', 'overlap_h',
             'ascending_tiles_x', 'ascending_tiles_y', 'px_size_xy',
