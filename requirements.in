@@ -5,7 +5,7 @@ humanize
 imageio
 networkx>=2.0
 numpy
-opencv-python
+opencv-python-headless
 pandas
 pims
 psutil
@@ -13,3 +13,4 @@ pyyaml
 qpsolvers
 scipy
 tifffile
+napari[all]
